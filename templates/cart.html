@@ -1,0 +1,132 @@
+
+{% load static %}
+ <!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+      <!-- Custom CSS -->
+        
+      <!-- header js -->
+
+      <script>
+          var user = '{{request.user}}'
+      </script>
+      <script type="text/javascript" src="{% static 'js/header.js' %}"></script>
+
+      <link rel="stylesheet" href="{% static 'css/cart.css'%}" >
+           
+  </head>
+  <body>
+
+<nav class="navbar navbar-expand-lg  navbar-light bg-light">
+  <a class="navbar-brand font-weight-bold py-3" style="font-size: 30px;" href="{% url 'store' %}">Oldbookstore</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link py-3" style="font-size: 20px;" href="{% url 'store' %}">Home <span class="sr-only">(current)</span></a>
+      </li>
+        </ul>
+        
+      <ul class="navbar-nav" style="margin-right:5px;">
+      <li class="nav-item">
+        <a href="{% url 'cart' %}" class="nav-link py-3" style="font-size: 20px;"> Cart<div id="cart-span">{{cartItems}}</div></a>
+      </li>
+        </ul>
+
+        {% if user.is_authenticated %}
+      
+         
+         <ul class="navbar-nav navbar-right">
+
+            <li class="nav-item">
+            <a class="nav-link  py-3" style="font-size: 20px;" href="{% url 'logout1' %}">Logout</a>
+            </li>
+        </ul>
+             
+        {% else %}
+    
+     <ul class="nav navbar-nav  navbar-right">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle py-3" style="font-size: 20px;"   href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Login/SignUp
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'login' %}"><img src="{% static 'images/login.jpg' %}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+                              Login</a>
+                    <div class="dropdown-divider"></div>
+                 <a class="dropdown-item" href="{% url 'signup' %}"><img src="{% static 'images/register.jpg' %}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+                              SignUp</a> 
+            </div>
+      </li>
+    </ul> 
+        {% endif %}
+        
+   
+  </div>
+</nav>
+
+      <div class="container"  style="box-shadow: 5px 10px 8px #888888;">
+          <div class="cart">
+              
+                  <div class="cart-top">
+                          <a class="btn btn-outline-dark" href="{% url 'books' %}">&larr; Continue Shopping</a>
+                          <a style="display:inline; float:right;" class="btn btn-outline-success" href="{% url 'checkout' %}"> &rarr; Checkout</a>    
+                  </div>
+                          
+                   
+                        <br>
+                          <h5><strong>Items:{{cartItems}}</strong></h5>
+                          <h5 ><strong>Total:Rs.{{cartTotal}}</strong></h5> 
+                        
+              </div>
+                <hr>
+          
+                    <div class="cart-bar">
+                        <div style="flex:1"></div>
+                        <div style="flex:5"><h5><strong>Book Name</strong></h5></div>
+                        <div style="flex:3" ><h5><strong>Seller</strong></h5></div>
+                        <div style="flex:2" ><h5><strong>Price</strong></h5></div>
+                        <div style="flex:2"><h5><strong>Total</strong></h5></div>
+                        <div style="flex:2"></div>
+                    </div>
+               
+          <hr>
+                   {% for item in items %}
+                    <div class="cart-details">
+                        <div style="flex:1"><img src="{{item.product.imageURL}}" width="60px" height="80px"></div>
+                        <div style="flex:5; margin-top:12px;"><h5>{{item.product.product_name}}</h5></div>
+                        <div style="flex:3; margin-top:12px;"><h5>{{item.seller.seller_name}}</h5></div>
+                        <div style="flex:2; margin-top:12px;" ><h5>Rs.{{item.product.price|floatformat:2}}</h5></div>
+                        <div style="flex:2; margin-top:12px;"><h5>Rs.{{item.product.price|floatformat:2}}</h5></div>
+                        <div style="flex:2"><a class="btn btn-outline-info update-cart" data-product="{{item.product.id}}" data-seller="{{item.seller.id}}" data-action="remove">Remove</a></div>
+                    </div>
+
+                   {% endfor %}
+                
+          
+      </div>
+
+     
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+    
+  </body>
+
+</html>
+

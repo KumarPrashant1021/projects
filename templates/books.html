@@ -1,0 +1,222 @@
+
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+         <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+      <!-- Custom css -->
+
+           <link rel="stylesheet" href="{% static 'css/book_list.css' %}"> 
+      <style>
+          body, html {
+                  height: 100%;
+                    margin: 0;
+                    padding: 0;
+                    font-family: sans-serif;
+                
+                  /* The image used */
+                  background-image: url("{% static 'images/book1.jpeg' %}");
+
+                  /* Full height */
+                  height: 665px;
+
+                  /* Center and scale the image nicely */
+                  background-position: center;
+                  background-repeat: no-repeat;
+                  background-size: cover;
+             
+          }
+      </style>
+     <script>
+         var user = '{{request.user}}'
+      </script>
+      <script type="text/javascript" src="{% static 'js/header.js' %}"></script> 
+
+  </head>
+  <body>
+    
+        <!-- ==============Navbar===================== -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+      <a class="navbar-brand  font-weight-bold py-3" style="font-size: 30px;" href="{% url 'store' %}">Oldbookstore</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link  py-3" style="font-size: 20px;" href="{% url 'seller' %}">Sell</a>
+            </li>
+        </ul>
+       
+
+      <ul class="navbar-nav" style="margin-right:5px;">
+        <li class="nav-item">
+            <a href="{% url 'cart' %}" class="nav-link py-3" style="font-size: 20px;"> Cart<div id="cart-span">{{cartItems}}</div></a>
+        </li>
+      </ul>
+
+    <ul class="nav navbar-nav" style="margin-right:5px;">
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle py-3" style="font-size: 20px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Category
+        </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item update-category"  href="{% url 'books' %}" data-action="All" >All</a>
+                    <div class="dropdown-divider"></div>
+                <a class="dropdown-item update-category" href="{% url 'books_novel' %}" >Novels</a>
+                    <div class="dropdown-divider"></div>
+                <a class="dropdown-item update-category"  href="{% url 'books_academics' %}" >Academics</a>
+                     <div class="dropdown-divider"></div>
+                <a class="dropdown-item update-category"  href="{% url 'books_selfHelp' %}" >Selp Help</a>
+            </div>
+      </li>
+    </ul>
+
+         {% if user.is_authenticated %}
+      
+       <ul class="navbar-nav navbar-right">
+
+            <li class="nav-item">
+            <a class="nav-link  py-3" style="font-size: 20px;" href="{% url 'logout1' %}">Logout</a>
+            </li>
+        </ul>
+             
+        {% else %}
+    
+     <ul class="nav navbar-nav  navbar-right">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle py-3" style="font-size: 20px;"   href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Login/SignUp
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'login' %}"><img src="{% static 'images/login.jpg' %}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+                              Login</a>
+                    <div class="dropdown-divider"></div>
+                 <a class="dropdown-item" href="{% url 'signup' %}"><img src="{% static 'images/register.jpg' %}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+                              SignUp</a> 
+            </div>
+      </li>
+    </ul> 
+        {% endif %}
+        
+   </div>
+</nav>
+      <!-- ==============Search Button===================== -->
+
+      <div class="container search">
+        <form action="updateCity" method="post"> 
+            {% csrf_token %}
+            <input class="form-control" type="search" name="search" placeholder="Search books according to your city" aria-label="Search"><br>
+             <button type="submit" class="search1">Search</button>
+        </form>
+        <div  id="message">
+            
+            {% for m in messages%}
+            {{m}}
+            {% endfor %}
+                
+        </div>
+      </div>
+      
+      <!--========================Book Display================================-->
+      <div class="container" id="book-display">
+           
+          {% for product in products %}
+          <div class="product">
+            <div class="product-image">
+                 <img src="{{product.imageURL}}" width="150px" height="200px">
+                  </div>
+                  <div class="product-info">
+                  <h4>{{product.product_name}}</h4>
+                  <h5>{{product.author}}</h5>
+                  <h6>Seller:{{product.seller.seller_name}}</h6>
+                      <h6>City:{{product.seller.city}}</h6>
+                    <h5 style="font-weight:bold">Rs.{{product.price|floatformat:2}}</h5>
+                    <h6><button  class=" btn btn-outline-success update-cart" data-product="{{product.id}}" data-seller="{{product.seller.id}}" data-action="add" >Add to Cart</button></h6>
+                </div>
+              </div>
+          {% endfor %}
+          </div>
+
+
+       <!-- =======================Footer========================= -->
+          <footer>
+              
+              <div class="main-content">
+                  <div class="left box">
+                      <h2>About us</h2>
+                      <div class="content">
+                          <p>Welcome to our website.we give best book and best deals</p>
+                          <div class="social">
+                           <a href="#" class="fa fa-facebook"></a>
+                            <a href="#" class="fa fa-twitter"></a>
+                            <a href="#" class="fa fa-instagram"></a>
+                            <a href="#" class="fa fa-youtube"></a>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="center box">
+                      <h2>Address</h2>
+                      <div class="content">
+                          <div class="place">
+                              <i class="fa fa-map-marker"></i>
+                              <span class="text">Lalpur, Ranchi</span>
+                          </div>
+                          <div class="phone">
+                              <i class="fa fa-phone"></i>
+                              <span class="text">+91-9876543210</span>
+                          </div>
+                          <div class="email">
+                              <i class="fa fa-envelope"></i>
+                              <span class="text"></span>oldbookstore@gmail.com
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="right box">
+                      <h2>Contact us</h2>
+                      <form action="#">
+                          <div class="email">
+                              <div class="text">Email*</div>
+                              <input class="form-control" type="email" required>
+                          </div>
+                          <div class="msg">
+                              <div class="text">Message*</div>
+                              <textarea class="form-control" rows="2" cols="25" required></textarea>
+                          </div>
+                          <div class="btn">
+                              <button type="submit">Send</button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+
+              <div class="footer-bottom">
+              &copy; oldbook.com
+              
+              </div>
+              
+          </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+    <script>
+        
+        </script>
+  </body>
+</html>
+
+

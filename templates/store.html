@@ -1,0 +1,285 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <!-- Custom CSS -->
+      <link rel="stylesheet" href="{% static 'css/home.css' %}">
+      <script type="text/javascript">
+          var user = '{{ request.user }}'
+          function getCookie(name) {
+              var cookieValue = null;
+              if (document.cookie && document.cookie !== '') {
+                  var cookies = document.cookie.split(';');
+                  for (var i = 0; i < cookies.length; i++) {
+                      var cookie = cookies[i].trim();
+                      // Does this cookie string begin with the name we want?
+                      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                          break;
+                      }
+                  }
+              }
+              return cookieValue;
+          }
+          var csrftoken = getCookie('csrftoken');
+      </script>
+    <style>
+          body, html {
+                  height: 100%;
+                    margin: 0;
+                    padding: 0;
+                    font-family: sans-serif;
+                
+                  /* The image used */
+                  background-image: url("{% static 'images/header_image.jpg' %}");
+
+                  /* Full height */
+                  height: 92%;
+
+                  /* Center and scale the image nicely */
+                  background-position: center;
+                  background-repeat: no-repeat;
+                  background-size: cover;
+             
+          }
+
+          @media(max-width: 500px) {
+    .main {
+        font-size: 50px;
+        margin-top: 230px;
+    }
+    @media(max-width: 500px) {
+    #quote {
+        font-size: 20px;
+        
+    }
+}
+}
+
+  
+
+    
+         
+
+          @media(max-width:500px){
+              body , html {
+                height: 80%;
+              }
+          }
+      </style>
+  </head>
+  <body>
+      <!-- ==============Navbar===================== -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+  <a class="navbar-brand  font-weight-bold py-3 " style="font-size: 30px;"  href="{% url 'store' %}">Oldbookstore</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item">
+        <a class="nav-link  py-3" style="font-size: 20px;" href="{% url 'seller' %}">Sell</a>
+      </li>
+        </ul>
+       {% if user.is_authenticated %}
+      
+         
+        <ul class="navbar-nav navbar-right">
+
+            <li class="nav-item">
+            <a class="nav-link  py-3" style="font-size: 20px;" href="{% url 'logout' %}">Logout</a>
+            </li>
+        </ul>
+             
+        {% else %}
+      <ul class="nav navbar-nav  navbar-right">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle py-3" style="font-size: 20px;"   href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Login/SignUp
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'login' %}"><img src="{% static 'images/login.jpg' %}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+                              Login</a>
+            <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'signup' %}"><img src="{% static 'images/register.jpg' %}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+                              SignUp</a> 
+        </div>
+      </li>
+      </ul>
+      {% endif %}
+  </div>
+</nav>
+      <!-- ==============Navbar Ends===================== -->
+
+      <!-- ==============Texts in main image===================== -->
+
+       <div class="main">Need Books?We Can Help</div>
+           <p id="quote">"A mind needs books like a sword needs a whetstone, if it is to keep its edge."</p>
+       
+      <!-- ==============Cards in image===================== -->
+
+        <div class="container" id="service" >
+              <div class="intro_item">
+               <div class="row">
+                      <div class="col-sm-4">
+                        <div class="card">
+                          <div class="card-body">
+                            <span class="display-item" href="#">
+                             <img src="{% static 'images/book.jpg' %}" width="50" height="50" class="d-inline-block align-top" alt="" loading="lazy">
+                                 Amazing Books</span>
+                          </div>
+                        </div>
+                      </div>
+               
+                      <div class="col-sm-4">
+                        <div class="card">
+                          <div class="card-body">
+                            <span class="display-item" href="#">
+                             <img src="{% static 'images/best.jpg' %}" width="50" height="50" class="d-inline-block align-top" alt="" loading="lazy">
+                                 The Best Price</span>
+                            
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="card">
+                          <div class="card-body">
+                            <span class="display-item" href="#">
+                             <img src="{% static 'images/service.jpg' %}" width="50" height="50" class="d-inline-block align-top" alt="" loading="lazy">
+                                 Amazing Services</span>
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+      </div>
+
+             <div class="container" id="pop-books">Popular Categories</div>
+
+            <!-- =================Book Categories ===================== -->
+
+            <div class="container" id="books-container" style="margin-top:100px" >
+               <div class="book-type">
+                    <div class="books">
+							<div class="book-image">
+								<img src="{% static 'images/novel.jpg' %}" width="350" height="260" class="d-inline-block align-top" alt="" loading="lazy">
+							</div>
+							<div class="book_content">
+								<div class="book_title"><a href="{% url 'books_novel' %}" style="text-decoration: none; color: grey;" class="hover-effect" >Novels</a></div>
+								<div class="book_subtitle"><p>Explore great stories</p></div>
+								
+							</div>
+                        </div>
+
+                   <div class="books">
+							<div class="book-image">
+								<img src="{% static 'images/academic.jpg' %}" width="350" height="260"  class="d-inline-block align-top" alt="" loading="lazy" alt="" loading="lazy">
+							</div>
+							<div class="book_content">
+								<div class="book_title"><a href="{% url 'books_academics' %}" style="text-decoration: none; color: grey;" class="hover-effect" >Academic</a></div>
+								<div class="book_subtitle"><p>Learn more get ahead</p></div>
+								
+							</div>
+                        </div>
+
+                    <div class="books">
+							<div class="book-image">
+								<img src="{% static 'images/self_help_book.jpeg' %}" width="350" height="260" class="d-inline-block align-top" alt="" loading="lazy">
+							</div>
+							<div class="book_content">
+								<div class="book_title"><a href="{% url 'books_selfHelp' %}" style="text-decoration: none; color: grey;" class="hover-effect">Self Help Books</a></div>
+								<div class="book_subtitle"><p>Get better with new perspective</p></div>
+								
+							</div>
+                          </div>
+                   </div>
+                </div>
+
+      <!-- =======================Footer========================= -->
+          <footer>
+              
+              <div class="main-content">
+                  <div class="left box">
+                      <h2>About us</h2>
+                      <div class="content">
+                          <p>Welcome to our website.we give best book and best deals</p>
+                          <div class="social">
+                           <a href="#" class="fa fa-facebook"></a>
+                            <a href="#" class="fa fa-twitter"></a>
+                            <a href="#" class="fa fa-instagram"></a>
+                            <a href="#" class="fa fa-youtube"></a>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="center box">
+                      <h2>Address</h2>
+                      <div class="content">
+                          <div class="place">
+                              <i class="fa fa-map-marker"></i>
+                              <span class="text">Lalpur, Ranchi</span>
+                          </div>
+                          <div class="phone">
+                              <i class="fa fa-phone"></i>
+                              <span class="text">+91-9876543210</span>
+                          </div>
+                          <div class="email">
+                              <i class="fa fa-envelope"></i>
+                              <span class="text"></span>oldbookstore@gmail.com
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="right box">
+                      <h2>Contact us</h2>
+                      <form action="#">
+                          <div class="email">
+                              <div class="text">Email*</div>
+                              <input class="form-control" type="email" required>
+                          </div>
+                          <div class="msg">
+                              <div class="text">Message*</div>
+                              <textarea class="form-control" rows="2" cols="25" required></textarea>
+                          </div>
+                          <div class="btn">
+                              <button type="submit">Send</button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+
+              <div class="footer-bottom">
+              &copy; oldbook.com
+              
+              </div>
+              
+          </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{% static 'home.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $(".hover-effect").hover(function () {
+                $(this).css("color", "black");
+            }, function () {
+                $(this).css("color", "grey");
+            });
+        });
+
+    </script>
+  </body>
+</html>

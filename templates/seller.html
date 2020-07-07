@@ -1,0 +1,214 @@
+
+{% load static %}
+ <!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+      <!-- Custom CSS -->
+        
+      <!-- header js -->
+
+      <script>
+          var user = '{{request.user}}'
+      </script>
+      <script type="text/javascript" src="{% static 'js/header.js' %}"></script>
+           
+  </head>
+  <body>
+
+<nav class="navbar navbar-expand-lg  navbar-light bg-light">
+  <a class="navbar-brand font-weight-bold py-3" style="font-size: 30px;" href="{% url 'store' %}">Oldbookstore</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link py-3" style="font-size: 20px;" href="{% url 'store' %}">Home <span class="sr-only">(current)</span></a>
+      </li>
+        </ul>
+        
+     
+        
+   
+  </div>
+</nav>
+      <div class="container">
+       {% if user.is_authenticated %}
+      
+        
+           <div style="text-align:center"><h1>Welcome to seller page,{{user.first_name}}</h1>
+               <h5>Fill the below form and place your book in this website</h5>
+               <h6 style="color:blue">Note: Your choice of price directly affect the selles of your book</h6>
+           </div>
+             
+          <hr>
+
+          <div class="row">
+              <div class="col-5 mt-3 mb-2 ">
+
+                  
+                  <h4 class="text-center">Seller Information</h4>
+                  <form action="seller" method="post"enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="form-group">
+                        <input type="text" class="form-control" name="full_name" placeholder="Full name" required>
+                     </div>
+
+                      <div class="form-group">
+                        <input type="number" class="form-control" name="phone_no" placeholder="Phone number" required>
+                     </div>
+
+                       <div class="form-group">
+                        <input type="email" class="form-control" name="email" placeholder="Email" required>
+                     </div>
+
+                       <div class="form-group">
+                        <input type="text" class="form-control" name="city" placeholder="City" required>
+                     </div>
+                    
+                      <h4 class="text-center">Book Information</h4>
+            
+                      <div class="form-group">
+                        {{ form.product_name }}
+                     </div>
+
+                      <div class="form-group">
+                        {{ form.author }}
+                     </div>
+
+                       <div class="form-group">
+                        {{ form.price }}
+                     </div>
+
+                      <div class="form-group">
+                       Category: {{ form.category }}
+                     </div> 
+
+
+                          <div class="form-group">
+                        
+                     </div>
+                     
+                   
+                     <div class="form-group">
+                        <label class=" ml-0">Select image(max 300kb)</label>
+                            {{form.image}}
+                          <img src="" width="150px" height="200"  alt="Image preview...">
+                          
+                       </div> 
+                     
+                      <div class="btn-group" style="width:100%">
+                           <button type="submit"  class="btn btn-success" ><strong>Become seller</strong></button>
+                      </div>
+
+                  </form>
+              </div>
+
+              <div class="col mt-3 ">
+                  <h4 class="text-center">List of books that you had added</h4>
+                  {% for m in messages %}
+                  <h4 class="text-center mt-5" style="color:rebeccapurple">{{m}}</h4>
+                  {% endfor %}
+                  <div class="container mt-4 py-3">
+                              {% for product in products %}
+                      <div class="row"> 
+                        <div class="col-sm-4 pl-5 mb-4">
+                             <img src="{{product.imageURL}}" width="150px" height="200px">
+                              </div>
+                              <div class="col-lg">
+                              <h4>{{product.product_name}}</h4>
+                              <h5>{{product.author}}</h5>
+                              <h6>Seller:{{product.seller.seller_name}}</h6>
+                                  <h6>City:{{product.seller.city}}</h6>
+                                <h5 style="font-weight:bold">Rs.{{product.price|floatformat:2}}</h5>
+                                <h6><button  class=" btn btn-outline-danger delete" data-product="{{product.id}}" data-seller="{{product.seller.id}}" data-action="delete">Remove</button></h6> 
+                            </div>
+                          </div>
+                      {% endfor %}
+                  </div>
+              </div>
+          </div>
+        {% else %}
+      
+     <div><h3><a href="{% url 'login' %}">Please login to sell book </a></h3></div>
+      {% endif %}
+          
+
+    </div>
+     
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+    <script>
+        function previewFile() {
+            var preview = document.querySelector('img');
+            var file = document.querySelector('input[type=file]').files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function () {
+                preview.src = reader.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "";
+            }
+        }
+
+        var update = document.getElementsByClassName("delete")
+
+        for (var i = 0; i < update.length; i++) {
+            update[i].addEventListener('click', function () {
+                product_id = this.dataset.product
+                action = this.dataset.action
+                seller_id = this.dataset.seller
+                console.log('product_id', product_id, 'action', action, 'seller_id', seller_id)
+                upadateSellerPage(product_id,seller_id,action)
+
+               
+            })
+        }
+        
+        function upadateSellerPage(product_id, seller_id, action) {
+            console.log("user is logged in sending data")
+
+            var url = '/update_seller/'
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify({ 'productId': product_id, 'sellerId': seller_id, 'action': action })
+            })
+
+
+                .then((response) => {
+                    return response.json()
+                })
+
+                .then((data) => {
+                    console.log('data', data)
+                    location.reload()
+                })
+        }
+    </script>
+  </body>
+
+</html>
+
