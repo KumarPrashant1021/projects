@@ -1,0 +1,171 @@
+
+.navbar {
+    transition: all 0.4s;
+}
+
+.navbar .nav-link {
+    color: #fff;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar .navbar-brand {
+    color: #fff;
+}
+
+
+/* Change navbar styling on scroll */
+.navbar.active {
+    background: #fff;
+    opacity: 0.9;
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar.active .nav-link {
+    color: #555;
+}
+
+.navbar.active .nav-link:hover,
+.navbar.active .nav-link:focus {
+    color: #555;
+    text-decoration: none;
+}
+
+.navbar.active .navbar-brand {
+    color: #555;
+}
+
+
+/* Change navbar styling on small viewports */
+@media (max-width: 991.98px) {
+    .navbar {
+        opacity: 0.9;
+        background: #fff
+    }
+
+    .navbar .navbar-brand, .navbar .nav-link {
+        color: #555;
+    }
+}
+.navbar{
+    margin: 0;
+    width: 100%;
+    
+    
+}
+
+.nav-item{
+    font-family: sans-serif;
+    margin:10px;
+}
+.dropdown{
+    margin-right: 20px;
+}
+.bg{
+    text-align: center;
+    margin-top: 200px;
+    font-size: 100px;
+    color:aliceblue; 
+    font-family: "Comic Sans MS";
+    
+}
+#quote{
+     color:aliceblue; 
+    font-size: 30px;
+    text-align: center;
+    
+
+}
+
+.intro_item{
+    
+   
+    margin-top: 200px;
+}
+
+/*=============================display_service============================*/
+.card{
+    opacity: 0.9;
+}
+.card-body{
+    margin: 0px;
+}
+.display-item{
+    
+    font-size: 25px;
+}
+
+#pop-books{
+    
+    margin-top: 200px;
+    font-size:80px;
+    text-align: center;
+    font-family: "sans-serif";
+}
+
+/*============================book-type=======================================*/
+
+#books-container{
+    
+    
+    margin-right:auto;
+    margin-top: 100px;
+    
+    
+}
+.book-type{
+    
+    width: 100%;
+    
+}
+
+.books{
+   display: left;
+   float:left;
+   margin-right:20px;
+}
+.book_title{
+    margin-top: 5px;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 30px;
+   
+    color: black;
+}
+
+.book_subtitle{
+    margin-top: 5px;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    color: black;
+}
+
+#detail{
+    overflow: auto;
+    margin-top: 550px;
+}
+
+
+
+
+.img-book{
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#detail{
+    
+    margin-top: 550px;
+    margin-left: 0px;
+    margin-right: 0px;
+    
+    
+}
+

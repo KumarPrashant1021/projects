@@ -1,0 +1,132 @@
+html body{
+    
+    margin: 0px;
+    padding: 0px;
+    font-family:sans-serif;
+    background-color:red;
+}
+
+.navbar{
+    opacity: 0.9;
+}
+
+/*====================cart-style=========================*/
+#cart-span {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background-color: red;
+    color: yellow;
+    margin-left: 2px;
+    text-align: center;
+    border-radius: 12px;
+}
+
+.bg{
+    text-align: center;
+    margin-top: 200px;
+    font-size: 65px;
+    color:aliceblue; 
+    font-family: "Comic Sans MS";
+}
+
+.container{
+    
+    
+    margin-top: 200px;
+    
+}
+
+.product{
+    
+    
+    margin-top: 20px;
+    display:flex;
+   
+}
+
+.product-image{
+    
+    
+    
+}
+
+.product-info{
+   
+    margin-left: 80px;
+    margin-top:35px;
+}
+
+
+.Buy {
+    
+    text-decoration: none;
+}
+
+
+
+
+/*====footer===============*/
+
+.footer{
+    
+    background: #303036;
+    color:#d3d3d3;
+    height:400px;
+    margin-top: 150px;
+    position: relative;
+    
+}
+
+.footer .footer-content{
+    
+    border: 1px solid red;
+    height: 350px;
+}
+
+.footer-content{
+    
+    display: flex;
+   
+}
+
+.about{
+    
+    border: 1px solid red;
+    display: block;
+    width:400px;
+}
+
+.links{
+    
+    border: 1px solid red;
+    display: block;
+    float:left;
+}
+
+.contact-form{
+    
+    border: 1px solid red;
+    display: block;
+    width:400px;
+}
+
+
+.footer .footer-bottom{
+    
+background:#343a40;
+color: #686868;
+height: 50px;
+position: absolute;
+text-align: center;
+bottom:0px;
+left: 0px;
+padding-top: 20px;
+width: 100%;
+    
+}
+
+.footer-section{
+    
+    color:white;
+}

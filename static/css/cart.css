@@ -1,0 +1,66 @@
+body , html{
+    margin:0px;
+    padding:0px;
+    font-family:sans-serif;
+}
+#cart-span {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background-color: red;
+    color: yellow;
+    margin-left: 2px;
+    text-align: center;
+    border-radius: 12px;
+}
+
+.container{
+    margin-top:10px;
+   
+
+}
+.cart-bar{
+    display:flex;
+}
+
+.cart-details{
+    display: flex;
+    margin-top:20px;
+}
+
+
+ 
+/*====================Checkout.html===================*/
+
+.payment{
+    display:none;
+}
+
+.total{
+    display:inline-block;
+    float:right;
+    
+}
+#hr {
+    position: relative;
+    top: 20px;
+    border: none;
+    height: 1px;
+    background: #31b3d0;
+    
+}
+
+.cart-bar-checkout {
+    
+    
+    display: flex;
+}
+
+.placeorder{
+    width:100%;
+    border:none;
+    background-color:#2faf55;
+    color:white;
+    text-align:center;
+}
+
